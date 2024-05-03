@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
+body {
+    padding:0px;
+    margin:0px;
+    background-color: #eee;
+    font-family: 'Poppins', sans-serif;
+}
+.sidebaractive {
+    transform: translate(0%) !important;
+}
+.sidebar {
+    width: 300px;
+    background: rgb(38, 38, 75);
+    height: 100vh;
+    position: fixed;
+    padding: 20px;
+    box-sizing: border-box;
+    left: 0;
+    transform: translate(-100%);
+
+}
+
+ul.nav-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-top: 50px;
+}
+ul.nav-links li a {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+ul.social-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top:40px
+}
+ul.social-links li {
+    display: inline-block;
+    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    background: #fff;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 40px;
+}
+ul.social-links li a {
+    color: #b912b4;
+}
+.nav-header {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.closebtn {
+    position: absolute;
+    right: 15px;
+    font-size: 30px;
+    top: 0px;
+    color: #fff;
+    cursor: pointer;
+}
+    </style>
+    
+</head>
+<body>
+    <div class="nav-header">
+        <i class="fa fa-bars"></i>
+    </div>
+
+    <div class="sidebar ">
+        
+        <ul class="nav-links">
+            <li><a href="">Home</a></li>
+            <li><a href="">About Us</a></li>
+            <li><a href="">Services</a></li>
+            <li><a href="">Portfolio</a></li>
+            <li><a href="">Gallery</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+
+        <ul class="social-links">
+            <li><a href=""><i class="fa fa-facebook"></i></a></li>
+            <li><a href=""><i class="fa fa-twitter"></i></a></li>
+            <li><a href=""><i class="fa fa-instagram"></i></a></li>
+            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+    </div>
+
+    <script>
+let toggle_bar = document.querySelector(".nav-header");
+let sidebar = document.querySelector(".sidebar");
+
+toggle_bar.addEventListener("click", function(){
+    if(toggle_bar.firstElementChild.classList.contains("fa-bars"))
+    {
+        toggle_bar.firstElementChild.classList.replace("fa-bars","fa-times");
+    }
+    else
+    {
+        toggle_bar.firstElementChild.classList.replace("fa-times","fa-bars");
+    }
+   sidebar.classList.toggle("sidebaractive")
+})
+    </script>
+</body>
+</html>

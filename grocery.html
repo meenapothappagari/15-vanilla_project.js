@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>GROCERY LIST</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <style>
+        *{
+            box-sizing:border-box;
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+        body{
+            display:flex;
+            flex-direction:column;
+            min-height:100vh;
+            background:rgb(0, 238, 255);
+             color:black; 
+        }
+        header{
+            padding: 2rem 1rem;
+            max-width: 800px;
+            width: 100%;
+            margin:0 auto;
+        }
+        header h1{
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        #new_task_form{
+            display:flex;
+        }
+        input,button{
+            appearance:none;
+            border:none;
+            outline:none;
+        }
+        #new_task_input{
+            flex:1 1 0%;
+            background-color:white;
+            padding:1rem;
+            border-radius:1rem;
+            margin-right:1rem;
+            color:black;
+            font: size 1.25rem;
+        }
+        #new_task_input::placeholder{
+            color:black;
+        }
+        #new_task_submit{
+            font-size:1.25rem;
+            font: weight 700px;
+            cursor:pointer;
+            transition:0.4s;
+        }
+        #new_task_submit:hover{
+         opacity:0.8;
+        }
+        #new_task_submit:active{
+            opacity:0.6;
+        }
+        main{
+            flex:1 1 0%;
+            padding:2rem 1rem;
+            max-width: 800px;
+            width:100%;
+            margin:0 auto;
+            
+        } 
+        .task_list{
+            padding:1rem;
+        }
+        .task_list h2{
+            font-size :1.5rem;
+            font-weight:300;
+            margin-bottom:1 rem;
+        
+        } 
+        #tasks .task{
+            display:flex;
+            justify-content:space-between;
+            background-color:white; 
+            padding:1rem;
+            border-radius: 1rem;
+            margin-bottom:1rem;
+        
+        }
+        #tasks .task .content .text{
+            flex:1 1 0%
+        }
+        
+        #tasks .task .content .text{
+            font-size: 1.125rem;
+            width:100%;
+            display:block;
+            transition:0.4s;
+        }
+        #tasks .task .content .text:not(:read-only){
+        color:gray;
+        
+        }
+        #tasks .task .actions{
+            display:flex;
+            margin:0 -0.5rem;
+        
+        }
+        .task .actions button{
+            cursor:pointer;
+            margin:0 0.5rem;
+            font: size 1.125rem;
+            font-weight:700;
+            text-transform:uppercase;
+            transition:0.4s;
+        }
+        #new_task_submit:hover{
+        opacity:0.8s
+        }
+        #new_task_submit:active{
+           opacity: 0.6
+        }
+        .task .actions .edit{
+            background-color:rgb(222, 241, 115);
+        }
+        .task .actions .delete{
+            color:red;
+        }
+      </style>
+    </head>
+    <body>
+        <header>
+            <h1> grocery list</h1>
+            <form id="new_task_form">
+                <input
+                    type="text"
+                    id="new_task_input"
+                    placeholder="enter your item"/>
+                <input
+                    type="submit"
+                    id="new_task_submit"
+                    value="Add task"/>
+            </form>
+        </header>
+        <main>
+            <section class="task_list">
+                <h2>Tasks</h2>
+                <div id="tasks"></div>
+            </section>
+        </main>
+        
+         <script>
+            window.addEventListener('load', () => {
+                const form = document.querySelector("#new_task_form");
+                const input = document.querySelector("#new_task_input");
+                const list_el = document.querySelector("#tasks");
+    
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+    
+                    const task = input.value;
+    
+                    if(!task){
+                        alert("enter your item");
+                        return;
+                    }
+    
+                    const task_el = document.createElement('div');
+                    task_el.classList.add('task');
+    
+                    const task_content_el = document.createElement('div');
+                    task_content_el.classList.add('content');
+                    // task_content_el.innerText = task;
+    
+                    task_el.appendChild(task_content_el);
+    
+                    // list_el.appendChild(task_el);
+                    // input.value = ''; // Clear input field after adding task
+                    const task_input_el=document.createElement("input");
+                    task_input_el.classList.add("text")
+                    task_input_el.type="text"
+                    task_input_el.value=task;
+                    task_input_el.setAttribute("readonly","readonly")
+
+
+                    task_content_el.appendChild(task_input_el);
+
+                    // list_el.appendChild(task_el)
+
+                    const task_actions_el=document.createElement("div")
+                    task_actions_el.classList.add("actions");
+
+                    const task_edit_el=document.createElement("button")
+                    task_edit_el.classList.add("edit");
+                    task_edit_el.innerHTML="Edit"
+
+
+                    const task_delete_el=document.createElement("button")
+                    task_delete_el.classList.add("delete");
+                    task_delete_el.innerHTML="Delete";
+
+                    task_actions_el.appendChild(task_edit_el);
+                    task_actions_el.appendChild(task_delete_el);
+                    
+
+                    task_el.appendChild(task_actions_el);
+
+                     list_el.appendChild(task_el);
+
+                     input.value="";
+
+
+                     task_edit_el.addEventListener('click',()=>{
+                        if(task_edit_el.innerText.toLowerCase()=="edit")
+                        {
+                            task_input_el.removeAttribute("readonly")
+                            task_input_el.focus();
+                            task_edit_el.innerText="save"
+                        }else{
+                            task_input_el.setAttriute("readonly","readonly")
+                            task_edit_el.innerText="Edit"
+                        }
+
+                        })
+                        task_delete_el.addEventListener("click",()=>{
+                            list_el.removeChild(task_el); 
+                        })
+
+ 
+
+
+                });
+            });
+        </script>
+    </body>
+    </html>
